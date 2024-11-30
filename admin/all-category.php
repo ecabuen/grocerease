@@ -277,7 +277,7 @@ if ($categoryIdToEdit) {
                     window.location.href = `delete-category.php?cat_del=${categoryId}`;
                 }
             });
-        }
+        } 
 
         function editCategory(categoryId) {
             // Show the edit form
