@@ -43,7 +43,7 @@
 
                         // Generate the category link and content
                         echo '
-                        <a href="category-foods.php">
+                        <a href="items.php">
                             <div class="float-container">
                                 <img src="img/category/' . $categoryImage . '" class="img-responsive" alt="' . $categoryName . '">
                                 <h3 class="float-text text-white">' . $categoryName . '</h3>
@@ -53,7 +53,7 @@
                 } else {
                     echo '<p>No categories found.</p>';
                 }
-
+ 
                 // Close database connection
                 mysqli_close($db);
                 ?>
