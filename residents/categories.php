@@ -41,13 +41,12 @@
                         $categoryImage = htmlspecialchars($row['image']);
 
                         // Generate the category link and content
-                        echo '
-            <a href="category-foods.php">
-                <div class="float-container">
-                    <img src="residents/img/category/' . $categoryImage . '" alt="' . $categoryName . '">
-                    <h3 class="float-text text-white">' . $categoryName . '</h3>
-                </div>
-            </a>';
+                        echo '<a href="category-foods.php">
+                                <div class="float-container">
+                                    <img src="/grocerease/residents/img/category/' . $categoryImage . '" alt="' . $categoryName . '">
+                                    <h3 class="float-text text-white">' . $categoryName . '</h3>
+                                </div>
+                              </a>';
                     }
                 } else {
                     echo '<p>No categories found.</p>';

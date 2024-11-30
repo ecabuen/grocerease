@@ -27,28 +27,41 @@
             <div class="heading-border"></div>
 
             <div class="grid-3">
-            <a href="category-foods.php">
-                    <div class="float-container">
-                        <img src="img/category/fresh-produce.png" class="img-responsive" alt="">
-                        <h3 class="float-text text-white">Fresh Products</h3>
-                    </div>
-                </a>
-                <a href="category-foods.php">
-                    <div class="float-container">
-                        <img src="img/category/dairy-products.jpg" class="img-responsive" alt="">
-                        <h3 class="float-text text-white">Dairy Products</h3>
-                    </div>
-                </a>
-                <a href="category-foods.php">
-                    <div class="float-container">
-                        <img src="img/category/meat-and-seafood.jpg" class="img-responsive" alt="">
-                        <h3 class="float-text text-white">Meat and Seafood</h3>
-                    </div>
-                </a>
+                <?php
+                // Include database connection file
+                include("../connection/connect.php");  // Ensure this file contains your database connection code
+
+                // Query to fetch categories
+                $sql = "SELECT * FROM categories ORDER BY name ASC LIMIT 3"; // Limit to 3 categories
+                $result = mysqli_query($db, $sql);
+
+                // Check if there are categories
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $categoryName = htmlspecialchars($row['name']); // Escaping to prevent XSS
+                        $categoryImage = htmlspecialchars($row['image']);
+
+                        // Generate the category link and content
+                        echo '
+                        <a href="category-foods.php">
+                            <div class="float-container">
+                                <img src="img/category/' . $categoryImage . '" class="img-responsive" alt="' . $categoryName . '">
+                                <h3 class="float-text text-white">' . $categoryName . '</h3>
+                            </div>
+                        </a>';
+                    }
+                } else {
+                    echo '<p>No categories found.</p>';
+                }
+
+                // Close database connection
+                mysqli_close($db);
+                ?>
             </div>
         </div>
     </section>
     <!-- Category Section End -->
+    
     <!-- Foods Section Start -->
     <section class="food-menu">
         <p class="text-center">
@@ -56,6 +69,7 @@
         </p>
     </section>
     <!-- Foods Section End -->
+    
     <?php include('footer.php'); ?>
 
     <!-- JQuery -->
