@@ -106,19 +106,16 @@
                     <a href="dashboard.php"><i class="fa fa-tachometer"></i><span>Dashboard</span></a>
                 </li>
                 <li>
-                    <a href="all_users.php"><i class="fa fa-user"></i><span>Users</span></a>
+                    <a href="residents.php"><i class="fa fa-home"></i><span>Residents</span></a>
                 </li>
                 <li>
-                    <a href="all_residents.php"><i class="fa fa-home"></i><span>Residents</span></a>
-                </li>
-                <li>
-                    <a href="all_riders.php"><i class="fa fa-motorcycle"></i><span>Riders</span></a>
+                    <a href="=riders.php"><i class="fa fa-motorcycle"></i><span>Riders</span></a>
                 </li>
                 <li>
                     <a href="all-category.php"><i class="fa fa-archive"></i><span>Categories</span></a>
                 </li>
                 <li>
-                    <a href="add-category"><i class="fa fa-archive"></i><span>Add Categories</span></a>
+                    <a href="add-category.php"><i class="fa fa-archive"></i><span>Add Categories</span></a>
                 </li>
                 <li>
                     <a href="all_orders.php"><i class="fa fa-shopping-cart"></i><span>Deliveries</span></a>
