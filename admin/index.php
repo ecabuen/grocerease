@@ -25,9 +25,7 @@ if (isset($_POST['submit'])) {
 
     if (is_array($row)) {
       $_SESSION["id"] = $row['id'];
-      // Debugging: Ensure session is set
-      if (isset($_SESSION["id"])) {
-        echo '<script>
+      echo '<script>
               window.onload = function() {
                 Swal.fire({
                   icon: "success",
@@ -39,9 +37,6 @@ if (isset($_POST['submit'])) {
                 });
               };
             </script>';
-      } else {
-        echo "Session not set properly!";
-      }
     } else {
       echo '<script>
                 window.onload = function() {
@@ -63,35 +58,113 @@ if (isset($_POST['submit'])) {
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Login</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
-  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
-  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/login.css">
-  <!-- SweetAlert library -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 400px;
+      width: 100%;
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      color: #333;
+    }
+
+    .container h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #4a90e2;
+    }
+
+    .form .thumbnail {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .form .thumbnail i {
+      font-size: 80px;
+      color: #4a90e2;
+    }
+
+    .form input[type="text"],
+    .form input[type="password"] {
+      width: 100%;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .form input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #4a90e2;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .form input[type="submit"]:hover {
+      background: #50c9c3;
+    }
+
+    .form a {
+      display: block;
+      margin-top: 10px;
+      text-align: center;
+      color: #4a90e2;
+      text-decoration: none;
+    }
+
+    .form a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
   <div class="container">
-    <div class="info">
-      <h1>Admin </h1>
+    <h1>Admin Login</h1>
+    <div class="form">
+      <div class="thumbnail">
+        <i class="fas fa-user-circle"></i>
+      </div>
+      <form class="login-form" action="index.php" method="post">
+        <input type="text" placeholder="Username" name="username" required />
+        <input type="password" placeholder="Password" name="password" required />
+        <input type="submit" name="submit" value="Login" />
+      </form>
+      <a href="#">Forgot Password?</a>
     </div>
   </div>
-  <div class="form">
-    <div class="thumbnail"><img src="images/manager.png" /></div>
-    <span style="color:red;"><?php echo $message; ?></span>
-    <span style="color:green;"><?php echo $success; ?></span>
-    <form class="login-form" action="index.php" method="post">
-      <input type="text" placeholder="Username" name="username" />
-      <input type="password" placeholder="Password" name="password" />
-      <input type="submit" name="submit" value="Login" />
-    </form>
-  </div>
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-  <script src='js/index.js'></script>
 </body>
 
 </html>
