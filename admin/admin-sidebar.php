@@ -109,7 +109,7 @@
                     <a href="residents.php"><i class="fa fa-home"></i><span>Residents</span></a>
                 </li>
                 <li>
-                    <a href="=riders.php"><i class="fa fa-motorcycle"></i><span>Riders</span></a>
+                    <a href="riders.php"><i class="fa fa-motorcycle"></i><span>Riders</span></a>
                 </li>
                 <li>
                     <a href="all-category.php"><i class="fa fa-archive"></i><span>Categories</span></a>
