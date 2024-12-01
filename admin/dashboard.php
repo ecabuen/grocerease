@@ -52,15 +52,20 @@ if (empty($_SESSION["id"])) {
             }
 
             .card-header {
-                background-color: #00cc04;
+                background-color: #ffb566;
                 border-radius: 15px 15px 0 0;
-                color: white;
+                color: #ffffff;
+                ;
                 font-size: 1.25rem;
+            }
+
+            .card-header h4 {
+                color: #ffffff !important;
             }
 
             .card-icon {
                 font-size: 3rem;
-                color: #009903;
+                color: #ffb566;
             }
 
             .media-body h2 {
