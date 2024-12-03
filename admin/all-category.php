@@ -5,24 +5,66 @@ include("../connection/connect.php");
 error_reporting(0);
 session_start();
 
-if (isset($_GET['msg'])) {
-    $msg = $_GET['msg'];
-    if ($msg == 'success') {
+// Handle category deletion
+if (isset($_GET['cat_del'])) {
+    $categoryId = intval($_GET['cat_del']);
+    $sql = "DELETE FROM categories WHERE id = $categoryId";
+    if (mysqli_query($db, $sql)) {
+        header("Location: all-category.php?msg=success");
+        exit;
+    } else {
+        header("Location: all-category.php?msg=error");
+        exit;
+    }
+}
+
+// Handle fetching category details for editing
+if (isset($_GET['id'])) {
+    $categoryId = intval($_GET['id']);
+    $sql = "SELECT * FROM categories WHERE id = $categoryId";
+    $result = mysqli_query($db, $sql);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $category = mysqli_fetch_assoc($result);
+        echo json_encode($category);
+        exit;
+    } else {
+        echo json_encode(['error' => 'Category not found']);
+        exit;
+    }
+}
+
+// Handle category update
+if (isset($_POST['updateCategory'])) {
+    $categoryId = $_POST['category_id'];
+    $categoryName = mysqli_real_escape_string($db, $_POST['category_name']);
+    $categoryImage = $_FILES['category_image']['name'];
+    $imageTmpName = $_FILES['category_image']['tmp_name'];
+
+    if ($categoryImage) {
+        $imagePath = '../residents/img/category/' . $categoryImage;
+        move_uploaded_file($imageTmpName, $imagePath);
+        $sql = "UPDATE categories SET name = '$categoryName', image = '$categoryImage' WHERE id = $categoryId";
+    } else {
+        $sql = "UPDATE categories SET name = '$categoryName' WHERE id = $categoryId";
+    }
+
+    if (mysqli_query($db, $sql)) {
         echo "<script>
             Swal.fire({
-                title: 'Deleted!',
-                text: 'Category deleted successfully.',
+                title: 'Success!',
+                text: 'Category updated successfully.',
                 icon: 'success',
                 confirmButtonText: 'OK'
             }).then(() => {
                 window.location.href = 'all-category.php';
             });
         </script>";
-    } elseif ($msg == 'error') {
+    } else {
         echo "<script>
             Swal.fire({
                 title: 'Error!',
-                text: 'Failed to delete the category.',
+                text: 'Failed to update category.',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
@@ -30,82 +72,23 @@ if (isset($_GET['msg'])) {
     }
 }
 
-if (isset($_GET['id'])) {
-    $categoryId = $_GET['id'];
-
-    // Fetch the category data
-    $sql = "SELECT * FROM categories WHERE id = $categoryId";
-    $result = mysqli_query($db, $sql);
-
-    if ($result) {
-        $category = mysqli_fetch_assoc($result);
-        echo json_encode($category);
-    } else {
-        echo json_encode(['error' => 'Category not found']);
-    }
-}
-
-// Fetch the category for editing if id is provided
-$categoryIdToEdit = isset($_GET['id']) ? $_GET['id'] : null;
-$categoryData = null;
-if ($categoryIdToEdit) {
-    $sql = "SELECT * FROM categories WHERE id = $categoryIdToEdit";
-    $result = mysqli_query($db, $sql);
-    $categoryData = mysqli_fetch_assoc($result);
-    // Ensure the category data is correctly fetched and available
-}
 ?>
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <title>Categories</title>
 
     <!-- Bootstrap CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-    <!-- Custom CSS for table styling -->
     <link href="css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        .table thead th {
-            color: black !important;
-            background-color: #f8f9fa !important;
-            font-weight: bold;
-        }
-
-        .table tbody tr td {
-            color: black;
-        }
-
-        .table tbody tr:hover {
-            background-color: #f1f1f1;
-        }
-
-        .edit-form {
-            display: none;
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #ccc;
-            width: 50%;
-            margin: 20px auto;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="fix-header fix-sidebar">
-    <div class="preloader">
-        <svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
-        </svg>
-    </div>
-
+<body>
     <div id="header">
         <?php include('admin-header.php'); ?>
     </div>
@@ -127,10 +110,8 @@ if ($categoryIdToEdit) {
                                     </div>
 
                                     <div class="table-responsive m-t-40">
-                                        <table id="categoriesTable"
-                                            class="display nowrap table table-hover table-striped table-bordered"
-                                            cellspacing="0" width="100%">
-                                            <thead class="thead-dark">
+                                        <table id="categoriesTable" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                            <thead>
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Name</th>
@@ -140,24 +121,19 @@ if ($categoryIdToEdit) {
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                // Fetch categories from the database
                                                 $sql = "SELECT * FROM categories";
                                                 $result = mysqli_query($db, $sql);
 
-                                                // Check if there are categories
                                                 if (mysqli_num_rows($result) > 0) {
                                                     while ($row = mysqli_fetch_assoc($result)) {
-                                                        $categoryId = $row['id'];
-                                                        $categoryName = htmlspecialchars($row['name']);
-                                                        $categoryImage = htmlspecialchars($row['image']);
                                                         echo "
                                                     <tr>
-                                                        <td>$categoryId</td>
-                                                        <td>$categoryName</td>
-                                                        <td><img src='/grocerease/residents/img/category/$categoryImage' alt='$categoryName' width='100'></td>
+                                                        <td>{$row['id']}</td>
+                                                        <td>{$row['name']}</td>
+                                                        <td><img src='/grocerease/residents/img/category/{$row['image']}' alt='{$row['name']}' width='100'></td>
                                                         <td>
-                                                            <button class='btn btn-warning btn-sm' onclick='editCategory($categoryId)'>Edit</button>
-                                                            <button class='btn btn-danger btn-sm' onclick='confirmDelete(event, $categoryId)'>Delete</button>
+                                                            <button class='btn btn-warning btn-sm' onclick='editCategory({$row['id']})'>Edit</button>
+                                                            <button class='btn btn-danger btn-sm' onclick='confirmDelete(event, {$row['id']})'>Delete</button>
                                                         </td>
                                                     </tr>
                                                     ";
@@ -165,9 +141,6 @@ if ($categoryIdToEdit) {
                                                 } else {
                                                     echo "<tr><td colspan='4' class='text-center'>No categories found.</td></tr>";
                                                 }
-
-                                                // Close database connection
-                                                mysqli_close($db);
                                                 ?>
                                             </tbody>
                                         </table>
@@ -177,67 +150,35 @@ if ($categoryIdToEdit) {
                         </div>
                     </div>
 
-                    <!-- Edit Category Form -->
-                    <div class="edit-form" id="editCategoryForm" style="display: none;">
-                        <h5>Edit Category</h5>
-                        <form id="editForm" action="" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" name="category_id" value="">
-
-                            <div class="form-group">
-                                <label for="categoryName">Category Name:</label>
-                                <input type="text" id="categoryName" name="category_name" class="form-control" required>
+                    <!-- Modal for Editing -->
+                    <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editCategoryLabel">Edit Category</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form id="editForm" method="POST" enctype="multipart/form-data">
+                                    <div class="modal-body">
+                                        <input type="hidden" name="category_id" id="category_id">
+                                        <div class="mb-3">
+                                            <label for="category_name" class="form-label">Category Name</label>
+                                            <input type="text" id="category_name" name="category_name" class="form-control" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="category_image" class="form-label">Category Image</label>
+                                            <input type="file" id="category_image" name="category_image" class="form-control">
+                                            <img id="category_image_preview" src="https://via.placeholder.com/100" alt="Category Image Preview" class="mt-2" width="100">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" name="updateCategory" class="btn btn-success">Save Changes</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
                             </div>
-
-                            <div class="form-group">
-                                <label for="categoryImage">Category Image:</label>
-                                <input type="file" id="categoryImage" name="category_image" class="form-control">
-                            </div>
-
-                            <button type="submit" name="updateCategory" class="btn btn-success">Update Category</button>
-                            <button type="button" class="btn btn-secondary" onclick="closeEditForm()">Cancel</button>
-                        </form>
+                        </div>
                     </div>
-
-
-
-                    <?php
-                    if (isset($_POST['updateCategory'])) {
-                        $categoryId = $_POST['category_id'];
-                        $categoryName = mysqli_real_escape_string($db, $_POST['category_name']);
-                        $categoryImage = $_FILES['category_image']['name'];
-                        $imageTmpName = $_FILES['category_image']['tmp_name'];
-
-                        if ($categoryImage) {
-                            $imagePath = 'residents/img/category/' . $categoryImage;
-                            move_uploaded_file($imageTmpName, $imagePath);
-                            $sql = "UPDATE categories SET name = '$categoryName', image = '$categoryImage' WHERE id = $categoryId";
-                        } else {
-                            $sql = "UPDATE categories SET name = '$categoryName' WHERE id = $categoryId";
-                        }
-
-                        if (mysqli_query($db, $sql)) {
-                            echo "<script>
-                                    Swal.fire({
-                                        title: 'Success!',
-                                        text: 'Category updated successfully.',
-                                        icon: 'success',
-                                        confirmButtonText: 'OK'
-                                    }).then(() => {
-                                        window.location.href = 'all-category.php';
-                                    });
-                                  </script>";
-                        } else {
-                            echo "<script>
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'Failed to update category.',
-                                        icon: 'error',
-                                        confirmButtonText: 'OK'
-                                    });
-                                  </script>";
-                        }
-                    }
-                    ?>
                 </div>
             </div>
         </div>
@@ -246,15 +187,11 @@ if ($categoryIdToEdit) {
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="js/lib/bootstrap/js/popper.min.js"></script>
-    <script src="js/lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/custom.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- DataTables Initialization -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         $(document).ready(function () {
             $('#categoriesTable').DataTable({
+                "pageLength": 5,
                 "paging": true,
                 "searching": true,
                 "ordering": true
@@ -274,37 +211,35 @@ if ($categoryIdToEdit) {
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = `delete-category.php?cat_del=${categoryId}`;
+                    window.location.href = `all-category.php?cat_del=${categoryId}`;
                 }
             });
-        } 
+        }
 
         function editCategory(categoryId) {
-            // Show the edit form
-            document.getElementById('editCategoryForm').style.display = 'block';
-
-            // Fetch category data from the server using AJAX
             $.ajax({
-                url: 'all-category.php',  // A new PHP file to fetch category data
+                url: 'all-category.php',
                 type: 'GET',
                 data: { id: categoryId },
                 success: function (response) {
-                    // Assuming the response is JSON, populate the form
-                    var categoryData = JSON.parse(response);
-                    document.getElementById('categoryName').value = categoryData.name;
-                    document.getElementById('categoryImage').value = categoryData.image;  // Handle image display if needed
-                    document.querySelector('input[name="category_id"]').value = categoryData.id;
+                    const category = JSON.parse(response);
+                    if (category.error) {
+                        Swal.fire('Error!', category.error, 'error');
+                    } else {
+                        $('#category_id').val(category.id);
+                        $('#category_name').val(category.name);
+                        const imgPlaceholder = category.image
+                            ? `/grocerease/residents/img/category/${category.image}`
+                            : 'https://via.placeholder.com/100';
+                        $('#category_image_preview').attr('src', imgPlaceholder);
+                        $('#editCategoryModal').modal('show');
+                    }
                 },
                 error: function () {
-                    alert('Error fetching category data');
+                    Swal.fire('Error!', 'Failed to fetch category details.', 'error');
                 }
             });
         }
-
-        function closeEditForm() {
-            document.getElementById('editCategoryForm').style.display = 'none';
-        }
-
     </script>
 </body>
 
