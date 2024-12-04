@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,75 +16,85 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+<style>
+    /* Make the table scrollable on smaller screens */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tbl-full {
+        width: 50%;
+        border-collapse: collapse;
+    }
+
+    .tbl-full th,
+    .tbl-full td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    .tbl-full th {
+        background-color: #f4f4f4;
+    }
+
+    .tbl-full img {
+        max-width: 50px;
+        height: auto;
+    }
+
+    .btn-delete {
+        color: red;
+        font-size: 20px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+
 <body>
-<?php include('header.php'); ?>
+    <?php include('header.php'); ?>
 
     <!-- Food Order Section Start -->
     <section class="order">
         <div class="container">
-            <h2 class="text-center">Fill this form to confirm your order.</h2>
+            <h2 class="text-center">Confirm your order.</h2>
             <table class="tbl-full" border="0">
                 <tr>
                     <th>S.N.</th>
-                    <th>Food</th>
                     <th>Name</th>
-                    <th>Price</th>
                     <th>Qty</th>
-                    <th>Total</th>
                     <th>Action</th>
                 </tr>
                 <tr>
                     <td>1</td>
-                    <td><img src="img/food/p1.jpg" alt="Food"></td>
-                    <td>Pizza</td>
-                    <td>$ 8.00</td>
+                    <td>Cheese</td>
                     <td>1</td>
-                    <td>$ 8.00</td>
                     <td><a href="#" class="btn-delete">&times;</a></td>
                 </tr>
                 <tr>
-                    <td>2</td>
-                    <td><img src="img/food/s1.jpg" alt="Food"></td>
-                    <td>Sandwich</td>
-                    <td>$ 8.00</td>
                     <td>1</td>
-                    <td>$ 8.00</td>
+                    <td>Cheese</td>
+                    <td>1</td>
                     <td><a href="#" class="btn-delete">&times;</a></td>
                 </tr>
                 <tr>
-                    <td>3</td>
-                    <td><img src="img/food/b1.jpg" alt="Food"></td>
-                    <td>Burder</td>
-                    <td>$ 8.00</td>
                     <td>1</td>
-                    <td>$ 8.00</td>
+                    <td>Cheese</td>
+                    <td>1</td>
                     <td><a href="#" class="btn-delete">&times;</a></td>
                 </tr>
-                <tr>
-                    <th colspan="5">Total</th>
-                    <th>$24.00</th>
-                    <th></th>
-                </tr>
+
             </table>
-            <form action="" class="form">
-                <fieldset>
-                    <legend>Delivery Details</legend>
-                    <p class="label">Full Name</p>
-                    <input type="text" placeholder="Enter your name..." required>
-                    <p class="label">Phone Number</p>
-                    <input type="contact" placeholder="Enter your phone..." required>
-                    <p class="label">Email</p>
-                    <input type="email" placeholder="Enter your email..." required>
-                    <p class="label">Address</p>
-                    <input type="text" placeholder="Enter your address..." required>
-                    <input type="submit" value="Confirm Order" class="btn-primary">
-                </fieldset>
+            <form>
+                <input type="submit" value="Confirm Order" class="btn-primary">
             </form>
         </div>
+
     </section>
     <!-- Food Order Section End -->
 
-    <?php include('footer.php'); ?>
+   
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -92,4 +103,5 @@
     <!-- Custom JS -->
     <script src="js/custom.js"></script>
 </body>
+
 </html>

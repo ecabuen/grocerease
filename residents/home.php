@@ -17,9 +17,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
+<?php include('header.php'); ?>
 <body>
-    <?php include('header.php'); ?>
+<?php include('search.php'); ?>
 
     <!-- Category Section Start -->
     <section class="categories">
@@ -31,8 +31,9 @@
                 <?php
                 // Include database connection file
                 include("../connection/connect.php");  // Ensure this file contains your database connection code
-                
-                $sql = "SELECT * FROM categories ORDER BY name ASC";
+
+                // Query to fetch categories
+                $sql = "SELECT * FROM categories ORDER BY name ASC LIMIT 3"; // Limit to 3 categories
                 $result = mysqli_query($db, $sql);
 
                 // Check if there are categories
@@ -42,12 +43,13 @@
                         $categoryImage = htmlspecialchars($row['image']);
 
                         // Generate the category link and content
-                        echo '<a href="items.php">
-                                <div class="float-container">
-                                    <img src="/grocerease/residents/img/category/' . $categoryImage . '" alt="' . $categoryName . '">
-                                    <h3 class="float-text text-white">' . $categoryName . '</h3>
-                                </div>
-                              </a>';
+                        echo '
+                        <a href="items.php">
+                            <div class="float-container">
+                                <img src="img/category/' . $categoryImage . '" class="img-responsive" alt="' . $categoryName . '">
+                                <h3 class="float-text text-white">' . $categoryName . '</h3>
+                            </div>
+                        </a>';
                     }
                 } else {
                     echo '<p>No categories found.</p>';
@@ -57,12 +59,19 @@
                 mysqli_close($db);
                 ?>
             </div>
-
         </div>
     </section>
     <!-- Category Section End -->
-
-    <!-- <?php include('footer.php'); ?> -->
+    
+    <!-- Foods Section Start -->
+    <section class="food-menu">
+        <p class="text-center">
+            <a href="categories.php" class="btn-primary">See All Categories</a>
+        </p>
+    </section>
+    <!-- Foods Section End -->
+    
+    <?php include('footer.php'); ?>
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
