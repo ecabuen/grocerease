@@ -1,0 +1,758 @@
+/* CSS Style For All */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  /* Recommended for consistent sizing */
+}
+
+input {
+  outline: 0;
+}
+
+input[type="submit"] {
+  border: 0;
+  cursor: pointer;
+}
+
+a {
+  color: rgb(226, 74, 74);
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+a:hover {
+  color: #6c5ce7;
+}
+
+.container {
+  width: 85%;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+.btn-delete {
+  background: #ff0000;
+  transition: 0.5s;
+  padding: 3px 5px;
+  color: #fff;
+  opacity: 0.8;
+  display: inline;
+  border-radius: 4px;
+}
+
+.btn-delete:hover {
+  color: #fff;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(90deg, #ff6347, #ff4500);
+  /* Gradient for a modern touch */
+  border: none;
+  border-radius: 25px;
+  /* Rounded edges */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow for depth */
+  transition: all 0.3s ease-in-out;
+  /* Smooth hover animation */
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #ff4500, #ff6347);
+  /* Reverse gradient on hover */
+  transform: scale(1.05);
+  /* Slight zoom effect */
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+  /* Stronger shadow on hover */
+}
+
+.btn-primary:active {
+  transform: scale(0.95);
+  /* Shrink effect on click */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  /* Reduced shadow on active state */
+}
+
+.label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.img-responsive {
+  width: 100%;
+}
+
+.img-curve {
+  border-radius: 10px;
+}
+
+.text-center {
+  text-align: center;
+
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+h2 {
+  color: #2f3542;
+  font-size: 32px;
+  margin-bottom: 25px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+.heading-border {
+  width: 100px;
+  height: 4px;
+  background: #ff6347;
+  margin: 0 auto 2rem auto;
+  border-radius: 50px;
+}
+
+fieldset {
+  border: 1px solid #fff;
+  margin: 40px;
+  padding: 25px;
+  border-radius: 5px;
+  padding-bottom: 0;
+}
+
+fieldset legend {
+  font-size: 23px;
+  color: #2f3542;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px 30px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* CSS Style For All End */
+
+/* Navigation Section Style */
+.navbar {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 50px 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar .logo img {
+  height: 50px;
+}
+
+.navbar-menu {
+  padding: 10px 0;
+  background: #fff;
+  transition: all 0.5s ease-in-out;
+}
+
+.navbar-menu ul {
+  display: flex;
+  justify-content: flex-end;
+  list-style: none;
+}
+
+.navbar-menu ul li {
+  margin: 0 15px;
+}
+
+.navbar-menu ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 5px 10px;
+  transition: color 0.3s;
+}
+
+.navbar-menu ul li a:hover {
+  color: #ff5722;
+}
+
+.site-top-nav {
+  background: #fff;
+  padding: 0;
+  box-shadow: 2px -4px 13px 0px #000;
+}
+
+.navbar-fixed-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  box-shadow: 2px -7px 13px 0px #000;
+}
+
+.navbar-fixed-top .container {
+  padding: 0 15px;
+}
+
+.logo {
+  width: 120px;
+  float: left;
+  padding: 5px 5px;
+}
+
+.menu {
+  line-height: 60px;
+  position: relative;
+}
+
+.menu ul {
+  list-style: none;
+  width: 80%;
+  float: right;
+}
+
+.menu ul li {
+  display: inline;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.menu ul li:last-of-type {
+  text-align: center;
+}
+
+.hvr-underline-from-center:before {
+  background: #6c5ce7;
+  height: 2px;
+  bottom: 10px;
+}
+
+/* Shopping cart */
+#shopping-cart {
+  position: relative;
+  color: #333;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.badge {
+  background: #ff5722;
+  color: #fff;
+  border-radius: 50%;
+  padding: 3px 6px;
+  font-size: 12px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
+
+
+.shopping-cart {
+  color: #6c5ce7;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.cart-content {
+  background: #fff;
+  width: 440px;
+  position: absolute;
+  top: 62px;
+  right: 0;
+  box-shadow: 0px 4px 10px 0px #bfbfbf;
+  padding: 10px 10px;
+  display: none;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table th,
+.cart-table td {
+  border-bottom: 1px solid #ddd;
+  pad: 0px 5px;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+}
+
+.cart-table th {
+  font-weight: bold;
+  border-top: 1px solid #ddd;
+}
+
+.cart-table img {
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  border-radius: 100%;
+}
+
+/* Navigation Section Style End */
+
+/* Food Search Section Style Start */
+/* Styles for the image banner */
+.image-banner {
+  background-image: url(../img/title-head.jpg);
+  background-size: cover;
+  background-position: center;
+  height: 400px; /* Adjust the height based on your image */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: #fff;
+  padding: 0 20px;
+  text-align: left;
+}
+
+.banner-text {
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 20px; /* Space between the tagline and search form */
+  padding-left: 100px;
+}
+
+.banner-text h1 {
+  font-size: 4rem; /* Bigger font for "GrocerEase" */
+  font-weight: 700;
+  margin: 0;
+}
+
+.banner-text p {
+  font-size: 1.5rem; /* Bigger font for the tagline */
+  font-weight: 400;
+  margin-top: 10px;
+}
+
+.food-search {
+  /* background-image: url(../img/title-head.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; */
+  margin-top: 10px; /* Add some space between the banner and the search form */
+  text-align: left;
+  width: 100%;
+}
+
+.food-search input[type="search"] {
+  font-family: 'Poppins', sans-serif;
+  padding: 10px;
+  width: 70%;
+  max-width: 500px;
+  border: 2px solid #ff6347;
+  border-radius: 25px;
+  margin-bottom: 15px;
+}
+
+.food-search input[type="submit"] {
+  font-family: 'Poppins', sans-serif;
+  padding: 10px 20px;
+  background: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.food-search input[type="submit"]:hover {
+  background: #ff4500;
+  transform: scale(1.05);
+}
+
+.food-search .btn-primary {
+  padding: 12px;
+  transition: 0.5s;
+  border-radius: 0px 5px 5px 0px;
+}
+
+/* Food Search Section Style End */
+
+/* Categories Section Style Start */
+.categories {
+  background-image: url(../img/category-bg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 55px 0;
+}
+
+.categories h3 {
+  background: #ffa94c;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+}
+
+.float-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  /* Set a fixed height for uniformity */
+  overflow: hidden;
+  border-radius: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  background: #f9f9f9;
+  /* Optional: Add a background color as a placeholder */
+}
+
+.float-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.float-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Ensures images fill the container without distortion */
+  display: block;
+  border-radius: 15px;
+}
+
+.float-text {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  border-radius: 0 0 15px 15px;
+  transition: background 0.3s;
+}
+
+.float-container:hover .float-text {
+  background: linear-gradient(180deg, transparent, rgba(255, 99, 71, 0.9));
+}
+
+.categories .float-container img {
+  transition: 0.5s;
+  height: 100%;
+}
+
+.categories .float-container:hover img {
+  transform: scale(1.2);
+}
+
+/* Categories Section Style End */
+
+/* Food Section Style Start */
+.food-menu {
+  padding: 50px 0;
+}
+
+.food-menu h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ff5722;
+}
+
+.food-menu .grid-2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.food-menu-box {
+  background: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  max-width: 300px;
+  text-align: center;
+  padding: 20px;
+}
+
+.food-menu-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.food-menu-box img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.food-menu-box .food-price {
+  font-weight: bold;
+  color: #ff5722;
+  margin-bottom: 10px;
+}
+
+.food-menu-box input[type="number"] {
+  width: 50px;
+  margin: 10px 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.food-menu-box input[type="submit"] {
+  background: #ff5722;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.food-menu-box input[type="submit"]:hover {
+  background: #333;
+}
+
+.food-menu-img {
+  width: 20%;
+  float: left;
+}
+
+.food-menu-desc {
+  width: 70%;
+  float: left;
+  margin-left: 40px;
+}
+
+.food-price {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.food-details {
+  font-size: 16px;
+  color: #747d8c;
+}
+
+.food-menu-desc .btn-primary {
+  margin-top: 15px;
+  display: block;
+}
+
+/* Food Section Style End */
+
+/* Footer Section Style Start */
+
+.footer {
+  background: #ffa94c;
+  color: #fff;
+  padding: 50px 0;
+}
+
+.footer h3 {
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.footer .site-links a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+
+.footer .site-links a:hover {
+  color: #000000;
+}
+
+.footer .social-links ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+
+.footer .social-links ul li {
+  margin: 0 10px;
+}
+
+.footer .social-links ul li a img {
+  height: 30px;
+  transition: transform 0.3s;
+}
+
+.footer .social-links ul li a:hover img {
+  transform: scale(1.2);
+}
+
+/* Footer Section Style End */
+
+/* Copyright Section Style Start */
+.copyright {
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+}
+
+/* Copyright Section Style End */
+
+/* Back to top */
+#back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ff5722;
+  color: #fff;
+  font-size: 20px;
+  padding: 10px 15px;
+  border-radius: 50%;
+  display: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#back-to-top:hover {
+  background: #333;
+}
+
+/* Bact-To-Top Section Style End */
+
+/* Order Page Style Start */
+.order {
+  padding: 20px 0;
+}
+
+.order .tbl-full {
+  margin-bottom: 50px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order .tbl-full img {
+  width: 35px;
+  height: 35px;
+  vertical-align: middle;
+  border-radius: 100%;
+}
+
+.order .tbl-full tr {
+  border-left: 1px solid #bfbbbb;
+  border-right: 1px solid #bfbbbb;
+}
+
+.order .tbl-full tr th,
+.order .tbl-full tr td {
+  border-bottom: 1px solid #bfbbbb;
+  padding: 8px 8px;
+  text-align: center;
+}
+
+.order .tbl-full tr th {
+  border-top: 1px solid #bfbbbb;
+}
+
+.form fieldset,
+.contact fieldset,
+.login fieldset {
+  border: 1px solid #bfbbbb;
+}
+
+.form {
+  box-shadow: 0 0 20px 2px #1a171780;
+  width: 70%;
+  padding: 7px 0;
+  margin: 0 auto;
+  border-radius: 3px;
+}
+
+.form input,
+.form textarea {
+  width: 98%;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #bfbbbb;
+  margin-bottom: 25px;
+}
+
+.form input[type="submit"] {
+  width: 30%;
+  border-radius: 5px;
+}
+
+/* Order Page Style End */
+
+/* Contact Page Style Start */
+.contact,
+.login {
+  padding: 65px 0;
+}
+
+#gmap_canvas {
+  width: 100%;
+  height: 400px;
+  border: none;
+}
+
+/* Contact Page Style End */
+
+/* Banner Page Style Start */
+.banner {
+  background: linear-gradient(90deg, #ff6347, #ff4500);
+  /* Modern gradient background */
+  color: #fff;
+  /* White text */
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Banner Page Style End */
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar-menu ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .food-menu .grid-2 {
+    flex-direction: column;
+  }
+
+  .food-search input[type="search"] {
+    width: 100%;
+  }
+}
